@@ -77,7 +77,7 @@ const AddProduct = () => {
         ...prevErrors,
         productName: "Product Name is required",
       }));
-      return; 
+      return;
     }
     // Validate Description
     if (!formData.description.trim()) {
@@ -85,7 +85,7 @@ const AddProduct = () => {
         ...prevErrors,
         description: "Description is required",
       }));
-      return; 
+      return;
     }
 
     // Validate Meta Tag Title
@@ -94,7 +94,7 @@ const AddProduct = () => {
         ...prevErrors,
         metaTagTitle: "Meta Tag Title is required",
       }));
-      return; 
+      return;
     }
 
     // // Validate Model Name
@@ -103,7 +103,7 @@ const AddProduct = () => {
         ...prevErrors,
         modelName: "Model Name is required",
       }));
-      return; 
+      return;
     }
 
     const optionId = uuidv4();
@@ -167,8 +167,8 @@ const AddProduct = () => {
       ],
       video: [
         ...(prevData.video || []),
-        ...newMedia.filter((media)=>media.type === "video"),
-      ]
+        ...newMedia.filter((media) => media.type === "video"),
+      ],
     }));
 
     const storedMedia = JSON.parse(localStorage.getItem("productMedia")) || [];
@@ -199,14 +199,14 @@ const AddProduct = () => {
     localStorage.setItem("productMedia", JSON.stringify(updatedMedia));
   };
 
-  const handleVideoRemove=(index)=>{
-     const updatedVideoMedia=[...formData.video];
-     updatedVideoMedia.splice(index,1);
-     setFormData((prevData)=>({
+  const handleVideoRemove = (index) => {
+    const updatedVideoMedia = [...formData.video];
+    updatedVideoMedia.splice(index, 1);
+    setFormData((prevData) => ({
       ...prevData,
-      video:updatedVideoMedia,
-     }));
-     localStorage.setItem("productMedia", JSON.stringify(updatedVideoMedia));
+      video: updatedVideoMedia,
+    }));
+    localStorage.setItem("productMedia", JSON.stringify(updatedVideoMedia));
   };
 
   return (
@@ -506,11 +506,13 @@ const AddProduct = () => {
             />
 
             <div className="w-1/4 p-2">
-              <img
-                src={formData?.thumbnail}
-                alt="Thumbnail"
-                className="w-full h-32 object-cover rounded"
-              />
+              {formData.thumbnail && (
+                <img
+                  src={formData.thumbnail}
+                  alt="Thumbnail"
+                  className="w-full h-32 object-cover rounded"
+                />
+              )}
             </div>
 
             <h1 className="text-3xl font-bold mb-4">
@@ -542,20 +544,20 @@ const AddProduct = () => {
               ))}
 
               {/* Display Video from video */}
-              {formData.video?.map((data, index)=>(
+              {formData.video?.map((data, index) => (
                 <div key={index} className="relative w-1/4 p-2">
-                <video controls width="100%" autoPlay height="20%">
-                  <source src={data.url} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <button
-                  className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded"
-                  onClick={() => handleVideoRemove(index)}
-                  title="Remove Video"
-                >
-                  Remove
-                </button>
-              </div>
+                  <video controls width="100%" autoPlay height="20%">
+                    <source src={data.url} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <button
+                    className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded"
+                    onClick={() => handleVideoRemove(index)}
+                    title="Remove Video"
+                  >
+                    Remove
+                  </button>
+                </div>
               ))}
             </div>
           </div>
